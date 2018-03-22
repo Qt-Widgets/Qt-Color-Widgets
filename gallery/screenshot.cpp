@@ -22,16 +22,17 @@
 #include <QApplication>
 #include <cstring>
 #include <algorithm>
+#include <QDebug>
 
-#include "color_2d_slider.hpp"
-#include "color_delegate.hpp" /// \todo show it
-#include "color_dialog.hpp"
-#include "color_line_edit.hpp"
-#include "color_list_widget.hpp"
-#include "color_palette_widget.hpp"
-#include "color_preview.hpp"
-#include "color_wheel.hpp"
-#include "hue_slider.hpp"
+#include "QtColorWidgets/color_2d_slider.hpp"
+#include "QtColorWidgets/color_delegate.hpp" /// \todo show it
+#include "QtColorWidgets/color_dialog.hpp"
+#include "QtColorWidgets/color_line_edit.hpp"
+#include "QtColorWidgets/color_list_widget.hpp"
+#include "QtColorWidgets/color_palette_widget.hpp"
+#include "QtColorWidgets/color_preview.hpp"
+#include "QtColorWidgets/color_wheel.hpp"
+#include "QtColorWidgets/hue_slider.hpp"
 
 bool run = false;
 
@@ -118,8 +119,11 @@ int main(int argc, char *argv[])
     screenshot(palette_widget, "ColorPaletteWidget_readonly");
 
     color_widgets::HueSlider hue_slider;
-    hue_slider.resize(192, hue_slider.sizeHint().height());
     hue_slider.setColor(demo_color);
+    hue_slider.resize(192, hue_slider.sizeHint().height());
+    QObject::connect(&hue_slider, &color_widgets::HueSlider::valueChanged, [](int i){qDebug() << i;});
+//     hue_slider.setInvertedAppearance(true);
+//     hue_slider.setOrientation(Qt::Vertical);
     screenshot(hue_slider);
 
 
